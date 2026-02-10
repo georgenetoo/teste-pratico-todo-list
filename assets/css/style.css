@@ -1,0 +1,297 @@
+/* =========================================================
+   Variáveis globais de cores e estilos
+   Modo claro como padrão da aplicação
+   ========================================================= */
+:root {
+  --bg-color: #f0f2f5;
+  --container-bg: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --primary-color: #4ea8de;
+  --primary-dark: #1e6f9f;
+  --danger-color: #e25858;
+  --border-color: #d9d9d9;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --radius: 8px;
+  --transition: 0.3s;
+}
+
+/* =========================================================
+   Modo escuro
+   Ativado dinamicamente via classe no body (JS)
+   ========================================================= */
+body.dark-mode {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --primary-color: #90caf9;
+  --primary-dark: #42a5f5;
+  --border-color: #333333;
+}
+
+/* =========================================================
+   Reset básico e padronização de tipografia
+   ========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+/* =========================================================
+   Container principal que centraliza e limita o layout do app
+   ========================================================= */
+.conteiner-principal {
+  background-color: var(--container-bg);
+  width: 100%;
+  max-width: 768px;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: background-color var(--transition);
+}
+
+/* =========================================================
+   Cabeçalho do aplicativo (título + botão de tema)
+   ========================================================= */
+.cabecalho-app {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.cabecalho-app h1 {
+  font-size: 1.5rem;
+  color: var(--primary-dark);
+}
+
+.botao-icone {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.botao-icone:hover {
+  color: var(--primary-color);
+}
+
+/* =========================================================
+   Área de entrada para criação de novas tarefas
+   ========================================================= */
+.grupo-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#input-nova-tarefa {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  outline: none;
+}
+
+#select-categoria {
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
+.botao-adicionar {
+  background-color: var(--primary-dark);
+  color: white;
+  border: none;
+  padding: 0 1.2rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color var(--transition);
+}
+
+.botao-adicionar:hover {
+  background-color: var(--primary-color);
+}
+
+/* =========================================================
+   Filtros de visualização das tarefas
+   ========================================================= */
+.filtros-tarefa {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
+.botao-filtro {
+  background: none;
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: all var(--transition);
+}
+
+.botao-filtro.ativo,
+.botao-filtro:hover {
+  background-color: var(--primary-dark);
+  color: white;
+  border-color: var(--primary-dark);
+}
+
+/* =========================================================
+   Lista dinâmica de tarefas renderizadas pelo JavaScript
+   ========================================================= */
+.lista-tarefas {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.item-tarefa {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  padding: 1rem;
+  border-radius: var(--radius);
+  gap: 0.8rem;
+  transition: all var(--transition);
+}
+
+/* =========================================================
+   Estado de tarefa concluída (Requisito 2.3)
+   ========================================================= */
+.item-tarefa.concluida {
+  opacity: 0.6;
+}
+
+.item-tarefa.concluida span {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.checkbox-tarefa {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.texto-tarefa {
+  flex: 1;
+  word-break: break-all;
+}
+
+.tag-categoria {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+.botao-deletar {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color var(--transition);
+}
+
+.botao-deletar:hover {
+  color: var(--danger-color);
+}
+
+/* =========================================================
+   Estado vazio exibido quando não há tarefas cadastradas
+   ========================================================= */
+.estado-vazio {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.estado-vazio i {
+  font-size: 3rem;
+  opacity: 0.3;
+  margin-bottom: 1rem;
+}
+
+/* =========================================================
+   Rodapé com contador de tarefas e ação de limpeza
+   ========================================================= */
+.rodape-tarefas {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.botao-link {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.botao-link:hover {
+  color: var(--primary-dark);
+}
+
+.escondido {
+  display: none;
+}
+
+.rodape-app {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* =========================================================
+   Ajustes de layout para telas pequenas (Requisito 3.3)
+   ========================================================= */
+@media (max-width: 480px) {
+  .grupo-input {
+    flex-direction: column;
+  }
+
+  .filtros-tarefa {
+    justify-content: center;
+  }
+}
