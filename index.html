@@ -4,9 +4,84 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gerenciador de Tarefas</title>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+    <div class="conteiner-principal">
+      <header class="cabecalho-app">
+        <h1>Minhas Tarefas</h1>
+
+        <button id="botao-tema" class="botao-icone" aria-label="Alternar tema">
+          <i class="ph ph-moon"></i>
+        </button>
+      </header>
+
+      <main class="conteudo-tarefas">
+        <section class="secao-adicionar">
+          <form id="formulario-tarefa">
+            <div class="grupo-input">
+              <input
+                type="text"
+                id="input-nova-tarefa"
+                placeholder="O que você precisa fazer?"
+                autocomplete="off"
+              />
+
+              <select id="select-categoria" aria-label="Escolher categoria">
+                <option value="geral">Geral</option>
+                <option value="trabalho">Trabalho</option>
+                <option value="estudo">Estudo</option>
+                <option value="pessoal">Pessoal</option>
+              </select>
+
+              <button
+                type="submit"
+                class="botao-adicionar"
+                aria-label="Adicionar tarefa"
+              >
+                <i class="ph ph-plus-circle"></i>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="filtros-tarefa">
+          <button class="botao-filtro ativo" data-filtro="todas">Todas</button>
+          <button class="botao-filtro" data-filtro="pendentes">
+            Pendentes
+          </button>
+          <button class="botao-filtro" data-filtro="concluidas">
+            Concluídas
+          </button>
+        </section>
+
+        <ul id="lista-tarefas" class="lista-tarefas">
+          <li class="estado-vazio">
+            <i class="ph ph-clipboard-text"></i>
+            <p><strong>Você ainda não tem tarefas</strong></p>
+            <p>Crie tarefas e organize seu dia</p>
+          </li>
+        </ul>
+
+        <footer class="rodape-tarefas">
+          <span class="contador-tarefas">
+            <strong id="numero-tarefas">0</strong> tarefas pendentes
+          </span>
+
+          <button id="botao-limpar" class="botao-link escondido">
+            Limpar concluídas
+          </button>
+        </footer>
+      </main>
+
+      <footer class="rodape-app">
+        <p>Desenvolvido por George Neto</p>
+      </footer>
+    </div>
+
     <script src="assets/js/app.js"></script>
   </body>
 </html>
