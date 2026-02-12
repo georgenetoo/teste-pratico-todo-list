@@ -174,3 +174,64 @@ window.deletarTarefa = function (id) {
     renderizarTarefas();
   }
 };
+
+window.editarTarefa = function (id) {
+  const tarefa = tarefas.find((t) => t.id === id);
+  if (!tarefa) return;
+
+  // Cria o overlay (fundo escuro)
+  const overlay = document.createElement("div");
+  overlay.className = "modal-overlay";
+
+  // HTML interno do modal
+  overlay.innerHTML = `
+    <div class="modal-conteudo">
+      <h3>Editar Tarefa</h3>
+      
+      <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+        <label for="edit-texto" style="font-size: 0.9rem; color: var(--text-secondary);">Descrição</label>
+        <input type="text" id="edit-texto" value="${tarefa.texto}" autocomplete="off">
+      </div>
+      
+      <div style="display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem;">
+        <label for="edit-categoria" style="font-size: 0.9rem; color: var(--text-secondary);">Categoria</label>
+        <select id="edit-categoria">
+          <option value="geral" ${tarefa.categoria === "geral" ? "selected" : ""}>Geral</option>
+          <option value="trabalho" ${tarefa.categoria === "trabalho" ? "selected" : ""}>Trabalho</option>
+          <option value="estudo" ${tarefa.categoria === "estudo" ? "selected" : ""}>Estudo</option>
+          <option value="pessoal" ${tarefa.categoria === "pessoal" ? "selected" : ""}>Pessoal</option>
+        </select>
+      </div>
+
+      <div class="modal-botoes">
+        <button id="btn-cancelar-edicao">Cancelar</button>
+        <button id="btn-salvar-edicao">Salvar</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.getElementById("edit-texto").focus();
+
+  // Evento Cancelar
+  document.getElementById("btn-cancelar-edicao").onclick = () => {
+    overlay.remove();
+  };
+
+  // Evento Salvar
+  document.getElementById("btn-salvar-edicao").onclick = () => {
+    const novoTexto = document.getElementById("edit-texto").value.trim();
+    const novaCategoria = document.getElementById("edit-categoria").value;
+
+    if (novoTexto !== "") {
+      tarefas = tarefas.map((t) =>
+        t.id === id ? { ...t, texto: novoTexto, categoria: novaCategoria } : t,
+      );
+      salvarTarefas();
+      renderizarTarefas();
+      overlay.remove();
+    } else {
+      alert("A descrição da tarefa não pode ficar vazia.");
+    }
+  };
+};
