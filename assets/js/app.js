@@ -15,7 +15,7 @@ let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 let filtroAtual = "todas";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Funções de inicialização serão chamadas aqui futuramente
+  carregarTema();
   renderizarTarefas();
 });
 
@@ -259,3 +259,32 @@ botoesFiltro.forEach((botao) => {
     renderizarTarefas();
   });
 });
+
+botaoTema.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  const icone = botaoTema.querySelector("i");
+
+  // Verifica qual tema está ativo para trocar o ícone e salvar
+  const temaAtual = document.body.classList.contains("dark-mode")
+    ? "dark"
+    : "light";
+
+  icone.classList.replace(
+    temaAtual === "dark" ? "ph-moon" : "ph-sun",
+    temaAtual === "dark" ? "ph-sun" : "ph-moon",
+  );
+
+  localStorage.setItem("tema", temaAtual);
+});
+
+function carregarTema() {
+  const temaSalvo = localStorage.getItem("tema");
+  if (temaSalvo === "dark") {
+    document.body.classList.add("dark-mode");
+    const icone = botaoTema.querySelector("i");
+    // Garante que o ícone comece correto (sol) se estiver em dark mode
+    if (icone.classList.contains("ph-moon")) {
+      icone.classList.replace("ph-moon", "ph-sun");
+    }
+  }
+}
