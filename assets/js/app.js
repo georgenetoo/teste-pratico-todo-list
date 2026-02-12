@@ -106,9 +106,6 @@ function criarElementoTarefa(tarefa) {
   listaTarefas.appendChild(li);
 }
 
-// Stub para evitar erros antes da implementação completa
-function atualizarContador() {}
-
 // Adiciona uma nova tarefa ao array e salva no storage.
 function adicionarTarefa(evento) {
   evento.preventDefault();
@@ -151,3 +148,29 @@ function atualizarContador() {
 }
 
 formTarefa.addEventListener("submit", adicionarTarefa);
+
+// Alterna o status de conclusão de uma tarefa
+window.alternarStatus = function (id) {
+  tarefas = tarefas.map((tarefa) => {
+    if (tarefa.id === id) {
+      const concluida = !tarefa.concluida;
+      return {
+        ...tarefa,
+        concluida,
+        dataConclusao: concluida ? new Date().toISOString() : null,
+      };
+    }
+    return tarefa;
+  });
+  salvarTarefas();
+  renderizarTarefas();
+};
+
+// Remove uma tarefa da lista
+window.deletarTarefa = function (id) {
+  if (confirm("Tem certeza que deseja excluir esta tarefa?")) {
+    tarefas = tarefas.filter((tarefa) => tarefa.id !== id);
+    salvarTarefas();
+    renderizarTarefas();
+  }
+};
