@@ -60,7 +60,7 @@ function renderizarTarefas() {
   atualizarContador();
 }
 
-// Cria e insere no DOM o elemento visual de uma tarefa.
+//Cria e insere no DOM o elemento visual de uma tarefa.
 function criarElementoTarefa(tarefa) {
   const li = document.createElement("li");
   li.className = `item-tarefa ${tarefa.concluida ? "concluida" : ""}`;
@@ -108,3 +108,46 @@ function criarElementoTarefa(tarefa) {
 
 // Stub para evitar erros antes da implementação completa
 function atualizarContador() {}
+
+// Adiciona uma nova tarefa ao array e salva no storage.
+function adicionarTarefa(evento) {
+  evento.preventDefault();
+
+  const texto = inputTarefa.value.trim();
+  const categoria = selectCategoria.value;
+
+  // Validação de campo vazio
+  if (texto === "") {
+    alert("Por favor, digite uma descrição para a tarefa.");
+    return;
+  }
+
+  const novaTarefa = {
+    id: Date.now(),
+    texto,
+    categoria,
+    concluida: false,
+    dataCriacao: new Date().toISOString(),
+    dataConclusao: null,
+  };
+
+  tarefas.push(novaTarefa);
+  salvarTarefas();
+  renderizarTarefas();
+
+  // Limpeza automática do campo após adicionar
+  inputTarefa.value = "";
+  inputTarefa.focus();
+}
+
+// Atualiza o contador de tarefas pendentes e controla a visibilidade do botão de limpeza.
+function atualizarContador() {
+  const pendentes = tarefas.filter((t) => !t.concluida).length;
+  const concluidas = tarefas.length - pendentes;
+
+  contadorTarefas.textContent = pendentes;
+
+  botaoLimpar.classList.toggle("escondido", concluidas === 0);
+}
+
+formTarefa.addEventListener("submit", adicionarTarefa);
