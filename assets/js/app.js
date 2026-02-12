@@ -235,3 +235,27 @@ window.editarTarefa = function (id) {
     }
   };
 };
+
+// Remove todas as tarefas marcadas como concluídas
+function limparConcluidas() {
+  if (confirm("Deseja remover todas as tarefas concluídas?")) {
+    tarefas = tarefas.filter((tarefa) => !tarefa.concluida);
+    salvarTarefas();
+    renderizarTarefas();
+  }
+}
+
+botaoLimpar.addEventListener("click", limparConcluidas);
+
+// Listeners dos botões de filtro
+botoesFiltro.forEach((botao) => {
+  botao.addEventListener("click", () => {
+    // Remove classe ativa de todos e adiciona no clicado
+    botoesFiltro.forEach((b) => b.classList.remove("ativo"));
+    botao.classList.add("ativo");
+
+    // Atualiza o estado do filtro e re-renderiza
+    filtroAtual = botao.getAttribute("data-filtro");
+    renderizarTarefas();
+  });
+});
