@@ -29,6 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
   renderizarTarefas();
 });
 
+// Validação: Verifica se o texto tem pelo menos uma letra ou número
+function validarTextoTarefa(texto) {
+  // Regex: Procura por letras (a-z), números (0-9) ou caracteres acentuados
+  const regexAlfanumerico = /[a-zA-Z0-9\u00C0-\u00FF]/;
+  return regexAlfanumerico.test(texto);
+}
+
 function formatarData(dataISO) {
   if (!dataISO) return "";
   const data = new Date(dataISO);
@@ -43,7 +50,7 @@ function salvarTarefas() {
 }
 
 function renderizarTarefas() {
-  listaTarefas.innerHTML = ""; // Limpa apenas os itens da lista
+  listaTarefas.innerHTML = "";
 
   const tarefasFiltradas = tarefas.filter((tarefa) => {
     if (filtroAtual === "pendentes") return !tarefa.concluida;
@@ -51,7 +58,6 @@ function renderizarTarefas() {
     return true;
   });
 
-  // Controle de visibilidade do estado vazio via Classe CSS
   if (tarefasFiltradas.length === 0) {
     mensagemVazia.classList.remove("escondido");
   } else {
@@ -62,7 +68,6 @@ function renderizarTarefas() {
   atualizarContador();
 }
 
-// Cria o elemento da tarefa usando APENAS a API do DOM (Sem innerHTML)
 function criarElementoTarefa(tarefa) {
   const li = document.createElement("li");
   li.className = `item-tarefa ${tarefa.concluida ? "concluida" : ""}`;
@@ -109,7 +114,6 @@ function criarElementoTarefa(tarefa) {
   const divAcoes = document.createElement("div");
   divAcoes.className = "acoes-tarefa";
 
-  // Botão Editar
   const btnEditar = document.createElement("button");
   btnEditar.className = "botao-editar";
   btnEditar.ariaLabel = "Editar tarefa";
@@ -119,7 +123,6 @@ function criarElementoTarefa(tarefa) {
   iconeEditar.className = "ph ph-pencil-simple";
   btnEditar.appendChild(iconeEditar);
 
-  // Botão Deletar
   const btnDeletar = document.createElement("button");
   btnDeletar.className = "botao-deletar";
   btnDeletar.ariaLabel = "Deletar tarefa";
@@ -132,7 +135,6 @@ function criarElementoTarefa(tarefa) {
   divAcoes.appendChild(btnEditar);
   divAcoes.appendChild(btnDeletar);
 
-  // Montagem final do LI
   li.appendChild(checkbox);
   li.appendChild(divTexto);
   li.appendChild(divAcoes);
@@ -146,8 +148,9 @@ function adicionarTarefa(evento) {
   const texto = inputTarefa.value.trim();
   const categoria = selectCategoria.value;
 
-  if (texto === "") {
-    alert("Por favor, digite uma descrição para a tarefa.");
+  // validação: Verifica se o texto tem pelo menos uma letra ou número
+  if (!validarTextoTarefa(texto)) {
+    alert("A tarefa precisa conter pelo menos uma letra ou número.");
     return;
   }
 
@@ -226,8 +229,9 @@ btnSalvarEdicao.addEventListener("click", () => {
   const novoTexto = inputEditarTexto.value.trim();
   const novaCategoria = selectEditarCategoria.value;
 
-  if (novoTexto === "") {
-    alert("A descrição da tarefa não pode ficar vazia.");
+  // validação do texto editado: Verifica se tem pelo menos uma letra ou número
+  if (!validarTextoTarefa(novoTexto)) {
+    alert("A tarefa precisa conter pelo menos uma letra ou número.");
     return;
   }
 
