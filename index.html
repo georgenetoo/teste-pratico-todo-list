@@ -58,13 +58,13 @@
           </button>
         </section>
 
-        <ul id="lista-tarefas" class="lista-tarefas">
-          <li class="estado-vazio">
-            <i class="ph ph-clipboard-text"></i>
-            <p><strong>Você ainda não tem tarefas</strong></p>
-            <p>Crie tarefas e organize seu dia</p>
-          </li>
-        </ul>
+        <ul id="lista-tarefas" class="lista-tarefas"></ul>
+
+        <div id="mensagem-vazia" class="estado-vazio">
+          <i class="ph ph-clipboard-text"></i>
+          <p><strong>Nenhuma tarefa encontrada</strong></p>
+          <p>O que você deseja realizar hoje?</p>
+        </div>
 
         <footer class="rodape-tarefas">
           <span class="contador-tarefas">
@@ -80,6 +80,34 @@
       <footer class="rodape-app">
         <p>Desenvolvido por George Neto</p>
       </footer>
+    </div>
+
+    <div id="modal-editar" class="modal-overlay escondido">
+      <div class="modal-conteudo">
+        <h3>Editar Tarefa</h3>
+
+        <div class="modal-campo">
+          <label for="input-editar-texto" class="modal-label">Descrição</label>
+          <input type="text" id="input-editar-texto" autocomplete="off" />
+        </div>
+
+        <div class="modal-campo">
+          <label for="select-editar-categoria" class="modal-label"
+            >Categoria</label
+          >
+          <select id="select-editar-categoria">
+            <option value="geral">Geral</option>
+            <option value="trabalho">Trabalho</option>
+            <option value="estudo">Estudo</option>
+            <option value="pessoal">Pessoal</option>
+          </select>
+        </div>
+
+        <div class="modal-botoes">
+          <button id="btn-cancelar-edicao">Cancelar</button>
+          <button id="btn-salvar-edicao">Salvar</button>
+        </div>
+      </div>
     </div>
 
     <script src="assets/js/app.js"></script>

@@ -16,7 +16,7 @@
   --transition: 0.3s;
 }
 
-/* Tema Escuro (ativado no JS) */
+/* Tema Escuro */
 body.dark-mode {
   --bg-color: #121212;
   --container-bg: #1e1e1e;
@@ -198,12 +198,17 @@ body {
   word-break: break-all;
 }
 
+.item-cabecalho {
+  margin-bottom: 0.3rem;
+}
+
 .tag-categoria {
   font-size: 0.75rem;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   background-color: var(--border-color);
   color: var(--text-secondary);
+  margin-left: 0.5rem;
 }
 
 .datas-tarefa {
@@ -246,6 +251,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  /* Agora ele pode ser escondido/mostrado como bloco */
 }
 
 .estado-vazio i {
@@ -279,8 +285,9 @@ body {
   color: var(--primary-dark);
 }
 
+/* Classe utilitária para esconder elementos */
 .escondido {
-  display: none;
+  display: none !important;
 }
 
 .rodape-app {
@@ -323,6 +330,18 @@ body {
   color: var(--primary-dark);
   margin-bottom: 0.5rem;
   text-align: center;
+}
+
+/* Classes novas para remover style inline */
+.modal-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.modal-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
 .modal-conteudo input,
